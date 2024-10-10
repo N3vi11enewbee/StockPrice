@@ -4,23 +4,18 @@ import yfinance as yf
 import plotly.graph_objects as go
 from datetime import datetime
 
-# -------------------------------
+
 # App Configuration
-# -------------------------------
 st.set_page_config(page_title="Stock Price App", layout="wide")
 
-# -------------------------------
 # Title and Description
-# -------------------------------
 st.title("📈 Stock Price Web Application")
 st.markdown("""
 This application allows you to visualize the stock price data for various companies.
 You can select a company ticker, date range, and choose the type of chart you'd like to see.
 """)
 
-# -------------------------------
 # Sidebar for User Inputs
-# -------------------------------
 st.sidebar.header("User Input Parameters")
 
 def get_user_input():
@@ -32,9 +27,7 @@ def get_user_input():
 
 ticker, start_date, end_date, chart_type = get_user_input()
 
-# -------------------------------
 # Fetching Data
-# -------------------------------
 @st.cache_data
 def fetch_data(ticker, start, end):
     data = yf.download(ticker, start=start, end=end)
@@ -45,15 +38,13 @@ data_load_state = st.text("Loading data...")
 data = fetch_data(ticker, start_date, end_date)
 data_load_state.text("Loading data...done!")
 
-# -------------------------------
 # Display Data
-# -------------------------------
 st.subheader(f"Raw Data for {ticker}")
 st.write(data.tail())
 
-# -------------------------------
+
 # Plotting Data
-# -------------------------------
+
 st.subheader(f"{ticker} Price Chart")
 
 if chart_type == "Line":
@@ -85,9 +76,9 @@ else:
 
 st.plotly_chart(fig, use_container_width=True)
 
-# -------------------------------
+
 # Additional Insights
-# -------------------------------
+
 st.subheader("Additional Metrics")
 
 # Calculate Moving Averages
